@@ -72,6 +72,16 @@ def get_torsion_dcalpha_model():
 
   return Model(inputs=[aa_seq,ss_seq,pssm], outputs=[angles_dihedral, dcalpha])
 
+  # 2D_angles_dihedral = Lambda(dihedral_to_2D, name = 'ang2d')(angles_dihedral)
+  # calculate dcalpha from coords instead of angles (from train_rnn_torsion_dcalpha)
+  # # 3D Coordinate Prediction
+  #   coords = TimeDistributed(Dense(3), name='3d_output')(concat)
+  #
+  # # Distance Matrix Prediction
+  #   dcalpha = Lambda(pairwise_distance, name='3d_dcalpha_output')(coords)
+  # stacked = concateate([2d_angles_dihedral, dcalpha], axis = 1)
+  # instead use outputs = stacked
+
 # Trains a given model on folds (fold_start - fold_end)
 def train_model(model, fold_start, fold_end):
   # Free up memory
