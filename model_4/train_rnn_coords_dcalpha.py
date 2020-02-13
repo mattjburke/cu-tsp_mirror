@@ -94,15 +94,22 @@ def train_model(model, fold_start, fold_end):
 
 if __name__ == '__main__':
   start_time = datetime.now()
+  print("line 1 at ", datetime.now())
 
   recurrent_model = get_coords_dcalpha_model()
+  print("line 2 at ", datetime.now())
   recurrent_model.summary()
+  print("line 3 at ", datetime.now())
   rmsprop = keras.optimizers.RMSprop(lr=0.0002, rho=0.9, epsilon=None, decay=0.0, clipnorm=1.)
+  print("line 4 at ", datetime.now())
   recurrent_model.compile(optimizer=rmsprop, loss='mse', metrics=['mae'])
+  print("line 5 at ", datetime.now())
 
   #fold_pairs = [(1,1)]
   fold_pairs = [(10*(i-1)+1, 10*i) for i in range(1,11)]
+  print("line 6 at ", datetime.now())
   fold_pairs.append((101,105))
+  print("line 7 at ", datetime.now())
 
   for fold_pair in fold_pairs:
     fold_start, fold_end = fold_pair
