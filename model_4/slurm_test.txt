@@ -18,25 +18,40 @@
 
 #SBATCH --job-name="mjb_test" # a nice readable name to give your job so you know what it is when you see it in the queue, instead of just numbers
 
+#SBATCH --mail-user=mburke@iastate.edu   # email address
+#SBATCH --mail-type=BEGIN
+#SBATCH --mail-type=END
+#SBATCH --mail-type=FAIL
+
 # under this we just do what we would normally do to run the program, everything above this line is used by slurm to tell it what your job needs for resources
 
 # let's load the modules we need to do what we're going to do
 
-module load python
-module load py-numpy
-module load cuda
-module load cudnn
-module load tensorflow
+module purge
+module list
+
+# module load cuda
+module load cudnn  # loads cuda as well
+module load tensorflow  # changes python to 2.7
+module load keras
+module load py-numpy  # changes python to 3
+# module load py-numpy/1.13.3-py2-sx2jhbh  # uses python 2.7
+# module load tqdm  # module doesn't exist, but I need this
+
+# module load py-pip
 
 module list
+
+# pip install tqdm  # error read-only file system
 
 # let's make sure we're where we expect to be in the filesystem tree
 
 cd /work/LAS/jannesar-lab/mburke/cu-tsp_mirror/model_4
 pwd
+which python
 
 # the commands we're running are below
 
 echo "beginning"
-nohup python train_rnn_coords_dcalpha.py &
+python train_rnn_coords_dcalpha.py
 echo "finished"
